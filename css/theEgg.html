@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000;
+            text-align: center;
+            padding-top: 3px;
+        }
+
+        #mycanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        input {
+            position: fixed;
+            left: 50%;
+            top: 0;
+            margin-left: -220px;
+            width: 400px;
+            height: 50px;
+            background-color: transparent;
+            font-size: 30px;
+            color: #ffffff;
+            border: 1px solid #cccccc;
+            outline: none;
+        }
+        button {
+            position: fixed;
+            left: 50%;
+            margin-left: 180px;
+            top: 0;
+            height: 52px;
+            width: 100px;
+            border: 1px solid #cccccc;
+            color: #cccccc;
+            background-color: transparent;
+            outline: none;
+
+            /*margin-top: -4px;*/
+        }
+    </style>
+</head>
+<body>
+<canvas id="mycanvas"></canvas>
+<script>
+    var c = document.getElementById('mycanvas');
+    var ctx = c.getContext('2d');
+    c.setAttribute('width', window.innerWidth);
+    c.setAttribute('height', window.innerHeight);
+    var menber = ['青春无敌组', '组长:肖瑶','组员:吴德彪','组员:夏力','组员:杨龙彬','组员:文佳','组员:周益慧','组员:肖烁','组员:朱登辉','鸣谢:紫阳','鸣谢:吴彦祖','鸣谢:阿紫','鸣谢:杨茜','感谢观看','谢谢','都看到这儿了','投我们一票呗','青春无敌组制'];
+    //存放目标位置数据
+    var theEndArr = [];
+    //存放所有小球起始位置数据
+    var allArr = [];
+    //存放文字坐标函数
+    var fontarr = [];
+    //存放移动坐标
+    var themoveArr = [];
+    //小球数组
+    var randomArr = [];
+    for (var i = 0; i < 5000; i++) {
+        var obj = {};
+        obj.x = Math.random() * window.innerWidth - window.innerWidth / 2;
+        obj.y = Math.random() * window.innerHeight - window.innerHeight / 2;
+        obj.r = Math.random() * 3;
+        obj.color = randomColor();
+        obj.move = function () {
+            this.x = this.x + Math.random() * 2 - 1;
+            this.y = this.y + Math.random() * 2 - 1;
+        };
+        randomArr.push(obj);
+    }
+    //球体数组
+    var arr = [];
+    ctx.translate(c.width * 0.5, c.height * 0.5);
+    var theRadius = Math.min(c.width, c.height) * 0.4;
+    for (var j = -9; j < 9; j++) {
+        for (var i = 0; i < 24; i++) {
+            var obj = {};
+            obj.thexAngle = 15 * i;
+            if (15 * i >= 180) {
+                obj.theyAngle = 180 - 20 * j - 180;
+            }
+            arr.push(obj);
+        }
+    }
+    allArr = allArr.concat(arr, randomArr);
+    //    球体旋转定时器（基础定时器）
+    var baseId = setInterval(function () {
+        c.width = c.width;
+        ctx.translate(c.width * 0.5, c.height * 0.5);
+        for (var k = 0; k < randomArr.length; k++) {
+            var obj = randomArr[k];
+            obj.move();
+        }
+        theBall(randomArr);
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].thexAngle = arr[i].thexAngle + 1;
+        }
+        createR();
+    }, 1000 / 30);
+    //生成按钮定时器
+//    setTimeout(function(){
+////        clearInterval(daluanId);
+//        var input = document.createElement('input');
+//        document.body.appendChild(input);
+//        var btn = document.createElement('button');
+//        document.body.appendChild(btn);
+//        btn.innerText = '按钮';
+//    },1000)
+    //生成文字定时器
+    var count = 0;
+    var timerId = setInterval(function(){
+        var daluanId = setInterval(daluan,1000/100);
+        var randomArr = [];
+        for (var i = 0; i < 5000; i++) {
+            var obj = {};
+            obj.x = Math.random() * window.innerWidth - window.innerWidth / 2;
+            obj.y = Math.random() * window.innerHeight - window.innerHeight / 2;
+            obj.r = Math.random() * 3;
+            obj.color = randomColor();
+            obj.move = function () {
+                this.x = this.x + Math.random() * 2 - 1;
+                this.y = this.y + Math.random() * 2 - 1;
+            };
+            randomArr.push(obj);
+        }
+        allArr = [];
+        allArr = allArr.concat(arr, randomArr);
+        fontImg(menber[count]);
+        setTimeout(function(){
+            clearInterval(baseId);
+            clearInterval(daluanId);
+            moveBall(fontarr);
+            var fontId = setInterval(creatFont , 1000/60);
+            setTimeout(function(){
+                clearInterval(fontId);
+            },5000)
+        },2000);
+        count++
+        if(count>=18){
+            clearInterval(timerId)
+        }
+    },7000);
+//            fontImg('青春无敌');
+//        setTimeout(function(){
+//            clearInterval(baseId);
+//            moveBall(fontarr);
+////            creatFont();
+//            var fontId = setInterval(creatFont , 2000/60);
+//            setTimeout(function(){
+//                clearInterval(fontId);
+//            },5000)
+//        },1000);
+    //生成文字函数
+//    moveBall(fontarr);
+//    console.log(theEndArr);
+    function creatFont() {
+        c.width = c.width;
+        ctx.translate(c.width * 0.5, c.height * 0.5);
+        for (var i = 0; i < themoveArr.length; i++) {
+            var obj = themoveArr[i];
+            if (Math.abs(theEndArr[i].x - obj.x) <= Math.abs(obj.xmove)) {
+                obj.x = theEndArr[i].x;
+            }else{
+                obj.x = obj.x + obj.xmove;
+            }
+            if(Math.abs(theEndArr[i].y - obj.y)<=Math.abs(obj.ymove)){
+                obj.y = theEndArr[i].y;
+            }else{
+                obj.y = obj.y + obj.ymove;
+            }
+        }
+        theBall(themoveArr);
+    }
+    //打乱
+    function daluan(){
+        c.width = c.width;
+        ctx.translate(c.width * 0.5, c.height * 0.5);
+        for (var i = 0; i < themoveArr.length; i++) {
+            var obj = themoveArr[i];
+                obj.x = obj.x + obj.xmove;
+                obj.y = obj.y + obj.ymove;
+        }
+        theBall(themoveArr);
+    }
+    //小球移动函数
+    function moveBall(theTarget) {
+        themoveArr = [];
+        if (theTarget.length > allArr.length) {
+            theEndArr = theTarget;
+            for (var i = 0; i < theTarget.length; i++) {
+                var obj = allArr[i] || theTarget[i];
+                themoveArr.push(obj)
+            }
+        } else {
+            themoveArr = allArr;
+            for (var i = 0; i < allArr.length; i++) {
+            theEndArr[i] = theTarget[i] || allArr[i];
+            }
+        }
+        for (var i = 0; i < themoveArr.length; i++) {
+            var moveObj = themoveArr[i];
+            var obj = theEndArr[i];
+            var starx = themoveArr[i].x;
+            var stary = themoveArr[i].y;
+            var endx = obj.x;
+            var endy = obj.y;
+            var xmove = (endx - starx) / 60;
+            var ymove = (endy - stary) / 60;
+            moveObj.xmove = xmove;
+            moveObj.ymove = ymove;
+        }
+
+    }
+
+    //创建球体函数
+    function createR() {
+        var yRate = 0.3;
+        for (var i = 0; i < arr.length; i++) {
+            var dushu = arr[i];
+            var y = Math.sin(Math.PI * dushu.theyAngle / 180) * theRadius;
+            var x = Math.cos(Math.PI * dushu.theyAngle / 180) * theRadius * Math.cos(Math.PI * dushu.thexAngle / 180);
+            var z = Math.cos(Math.PI * dushu.theyAngle / 180) * Math.sin(Math.PI * dushu.thexAngle / 180);
+            var rate = (z + 1.7) / 2.7;
+            ctx.beginPath();
+            ctx.arc(x, y, rate * 10, 0, 2 * Math.PI);
+            ctx.fillStyle = randomColor(rate);
+            ctx.fill();
+        }
+    }
+    //随机数函数
+    function randomx(max, min) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    //随机透明度为a的随机颜色函数
+    function randomColor(a) {
+        var a = a || 1;
+        var r = randomx(220, 66);
+        var g = randomx(220, 66);
+        var b = randomx(220, 66);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+    }
+    //创建背景小球函数
+    function theBall(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            var obj = arr[i];
+            ctx.beginPath();
+            ctx.arc(obj.x, obj.y, obj.r, 0, Math.PI * 2);
+            ctx.fillStyle = obj.color;
+            ctx.fill()
+        }
+    }
+    //文字转化为图片函数
+    function fontImg(value) {
+        window.fontsize = 200;
+        fontarr = [];
+        width = calWordWidth(value, fontsize);
+        canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = fontsize + 110 ;
+        var ctx1 = canvas.getContext('2d');
+        ctx1.font = fontsize + 'px Microsoft YaHei';
+        ctx1.fillStyle = 'red';
+        ctx1.fillText(value, 0, 280);
+        getImage(canvas, ctx1)
+    }
+    //获取图片数据函数
+    function getImage(canvas, ctx) {
+        var image = new Image();
+        image.src = canvas.toDataURL("image/webp");
+        image.onload = function () {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0, this.width, this.height);
+            var imageData = ctx.getImageData(0, 0, this.width, this.height);
+//            var dataLength = imageData.data.length;
+            var diff = 4;
+//            var newCanvas = document.getElementById('canvas');
+//            var newCtx = newCanvas.getContext('2d');
+            for (var j = 0; j < this.height; j += diff) {
+                for (var i = 0; i < this.width; i += diff) {
+                    var colorNum = 0;
+                    for (var k = 0; k < diff * diff; k++) {
+                        var row = k % diff;
+                        var col = parseInt(k / diff);
+                        let r = imageData.data[((j + col) * this.width + i + row) * 4 + 0];
+                        let g = imageData.data[((j + col) * this.width + i + row) * 4 + 1];
+                        let b = imageData.data[((j + col) * this.width + i + row) * 4 + 2];
+                        if (r < 15 && g < 15 && b < 15) colorNum++
+                    }
+                    if (colorNum < diff * diff / 9 * 5) {
+                        var option = {
+                            x: i - width / 2 + 30,
+                            y: j - fontsize,
+                            r: Math.random() * 4,
+                            color: randomColor()
+                        };
+                        fontarr.push(option);
+                    }
+                }
+            }
+        }
+    }
+    function calWordWidth(value, fontSize) {
+        var arr = value.split('');
+        var reg = /\w/,
+                width = 0;
+        arr.forEach(function (item, index) {
+            if (reg.test(item)) {
+                width += fontSize; //字母宽度
+            } else {
+                width += fontSize + 10;//汉字宽度
+            }
+        });
+        return width
+    }
+
+</script>
+</body>
+</html>

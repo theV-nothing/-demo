@@ -1,0 +1,879 @@
+/*设置全局默认样式*/
+*{
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: #f9dfae;
+}
+html , body {
+    height: 100%;
+    width: 100%;
+    /*position: relative;*/
+    overflow: hidden;
+}
+/*顶部样式*/
+h1 {
+    position: absolute;
+    font-size: 0;
+    float: left;
+    width: 195px;
+    height: 44px;
+    margin-left: 80px;
+    background: url("../images/ulogo.png") no-repeat;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 45px;
+    background-color: transparent;
+    z-index: 99;
+    opacity: 0;
+}
+.header .nav-list {
+    float: right;
+    /*margin-right: 80px;*/
+}
+.header .list-bottom{
+    float: right;
+}
+.nav-list li{
+    position: relative;
+}
+.nav-list a .a-bottom {
+    position: absolute;
+    width: 100% !important;
+    left: 0 !important;
+    display: block !important;
+    background-color: #f9dfae;
+}
+.nav-list a span {
+    position: absolute;
+    background-color: #f9dfae;
+    height: 4px;
+}
+.header .nav-list li {
+    font-size: 20px;
+    line-height: 44px;
+    float: left;
+}
+/*第一页样式*/
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    opacity: 0;
+}
+.pgone {
+    z-index: 98;
+}
+/*.pgtwo {*/
+    /*opacity: 0;*/
+/*}*/
+/*.pgthree {*/
+    /*opacity: 0;*/
+/*}*/
+.thebox {
+    position: absolute;
+    width: 625px;
+    height: 625px;
+    top: 190px;
+    left: 648px;
+}
+.quan1 {
+    width: 625px;
+    height: 625px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    animation: myrotate1 7s linear infinite;
+
+}
+.quan1 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.thunderbird ,
+.thethunder {
+    position: absolute;
+    width: 600px;
+    height: 570px;
+    left: 12px;
+    top: 27px;
+    overflow: hidden;
+    transform: scale(0);
+    transition: transform 1s;
+}
+.thunderbird img {
+    position: absolute;
+    left: -1558px;
+    top: -686px;
+}
+.thethunder img {
+    position: absolute;
+    top: -1493px;
+    left: -360px;
+}
+.quan2 {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 525px;
+    height: 525px;
+    overflow: hidden;
+    animation: myrotate2 7s linear infinite;
+
+}
+.quan2 img{
+    position: absolute;
+    left: -1160px;
+    top: 0;
+}
+.quan3{
+    position: absolute;
+    top: 65px;
+    left: 80px;
+    width: 465px;
+    height: 495px;
+    overflow: hidden;
+    animation: myrotate1 7s linear infinite;
+
+}
+.quan3 img {
+    position: absolute;
+    top: 0;
+    left: -660px;
+}
+.quan4 {
+    position: absolute;
+    left: 124px;
+    top: 124px;
+    width: 377px;
+    height: 377px;
+    overflow: hidden;
+    animation: myrotate2 7s linear infinite;
+
+}
+.quan4 img {
+    position: absolute;
+    left: -1355px;
+    top: -1370px;
+}
+.toup,
+.third-i,
+.thelittle,
+.fourth-i {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.toup .imgbox1 {
+    width: 370px;
+    height: 475px;
+    position: absolute;
+    left: 150px;
+    top: -30px;
+    overflow: hidden;
+    animation: huangdong 2s linear infinite;
+}
+.imgbox1 img {
+    position: absolute;
+    left: -97px;
+    top: -680px;
+}
+.toup .imgbox2 {
+    width: 362px;
+    height: 362px;
+    position: absolute;
+    left: 100px;
+    top: 820px;
+    overflow: hidden;
+    animation: huangdong 2.4s linear infinite;
+}
+.imgbox2 img {
+    position: absolute;
+    left: -539px;
+    top: -678px;
+}
+.toup .imgbox3{
+    position: absolute;
+    top: 350px;
+    left: 1500px;
+    width: 375px;
+    height: 395px;
+    overflow: hidden;
+    animation: huangdong 1.6s linear infinite;
+}
+.imgbox3 img {
+    position: absolute;
+    top: -710px;
+    left: -1015px;
+}
+/*第一页文字样式*/
+.centertext {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: scale(1.2);
+    color: #f1d57a;
+}
+.centertext h3 {
+    position: absolute;
+    left: -240px;
+    top: -100px;
+    width: 480px;
+    height: 60px;
+    letter-spacing: 16px;
+    font-size: 44px;
+}
+.centertext p {
+    position: absolute;
+    left: -150px;
+    top: 30px;
+    width: 300px;
+    font-size: 20px;
+    letter-spacing: 7px;
+}
+.centertext i {
+    position: absolute;
+    top: 1px;
+    left: -25px;
+    width: 50px;
+    height: 3px;
+    background-color: #f1d57a;
+}
+/*第二页样式*/
+.toup .theimg1 {
+    width: 615px;
+    height: 585px;
+    position: absolute;
+    left: 80px;
+    top: -350px;
+    overflow: hidden;
+    animation: huangdong 1.6s linear infinite;
+}
+.theimg1 img{
+    position: absolute;
+    left: -35px;
+    top: -42px;
+}
+.toup .theimg2 {
+    width: 435px;
+    height: 500px;
+    position: absolute;
+    left: 0;
+    top:600px;
+    overflow: hidden;
+    animation: huangdong 2s linear infinite;
+}
+.theimg2 img {
+    position: absolute;
+    left: -777px;
+    top: 0;
+}
+.toup .theimg3 {
+    width: 240px;
+    height: 270px;
+    position: absolute;
+    left: 1450px;
+    top: 150px;
+    overflow: hidden;
+    animation: huangdong 2.4s linear infinite;
+}
+.theimg3 img {
+    position: absolute;
+    top: -575px;
+    left: -785px;
+}
+.thehuangguan {
+    width: 500px;
+    height: 800px;
+    position: absolute;
+    top: 100px;
+    left: 450px;
+}
+.huangguan {
+    width: 310px;
+    height: 225px;
+    position: absolute;
+    left: 100px;
+    top: 230px;
+    overflow: hidden;
+    z-index: 2;
+}
+.huangguan img {
+    position: absolute;
+    left: -1410px;
+    top: 0;
+}
+.hbox {
+    width: 270px;
+    height: 600px;
+    position: absolute;
+    top: 360px;
+    left: 145px;
+    overflow: hidden;
+}
+.hbox img {
+    position: absolute;
+    left: -1996px;
+    top: -245px;
+}
+.huangguan-l {
+    width: 77px;
+    height: 50px;
+    position: absolute;
+    top: 600px;
+    left: 140px;
+}
+.huangguan-l img {
+    width: 100%;
+    height: 100%;
+}
+.huangguan-r {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 500px;
+    left: 350px;
+}
+.huangguan-r img {
+    width: 100%;
+    height: 100%;
+}
+.hglight {
+    width: 500px;
+    height: 600px;
+    position: absolute;
+    left: 35px;
+    top: 0px;
+    overflow: hidden;
+    animation: jianyin 2.5s linear infinite ;
+}
+.hglight img {
+    position: absolute;
+    left: -1370px;
+    top: -300px;
+}
+.thelittle .i-img1 {
+    width: 33px;
+    height: 35px;
+    position: absolute;
+    left: 480px;
+    top: 450px;
+    overflow: hidden;
+    animation: huangdong 4s linear infinite;
+}
+.thelittle img {
+    width: 100%;
+    height: 100%;
+}
+.i-img2 {
+    width: 46px;
+    height: 72px;
+    position: absolute;
+    left: 900px;
+    top: 370px;
+    animation: huangdong 5s linear infinite;
+}
+.i-img3 {
+    width: 25px;
+    height: 30px;
+    position: absolute;
+    left: 890px;
+    top: 780px;
+    animation: huangdong 6s linear infinite;
+}
+
+/*第二页文字样式*/
+.secondtext {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #f1d57a;
+    transition: all 0.8s;
+}
+.secondtext h3 {
+    position: absolute;
+    top: -150px;
+    width: 400px;
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 7px;
+    text-align: right;
+}
+.secondtext i {
+    position: absolute;
+    left: 360px;
+    top: -70px;
+    width: 30px;
+    height: 4px;
+    text-align: right;
+    background-color: #f1d57a;
+}
+.secondtext p {
+    position: absolute;
+    top: -50px;
+    width: 400px;
+    font-size: 20px;
+    letter-spacing: 7px;
+    text-align: right;
+}
+/*第三页样式*/
+.toup .thirdimg1 {
+    width: 320px;
+    height: 290px;
+    position: absolute;
+    top: -30px;
+    left: 110px;
+    overflow: hidden;
+    animation: huangdong 2.4s linear infinite;
+}
+.thirdimg1 img {
+    position: absolute;
+    left: -65px;
+    top: -95px;
+}
+.toup .thirdimg2 {
+    width: 510px;
+    height: 510px;
+    position: absolute;
+    top: 800px;
+    left: 50px;
+    overflow: hidden;
+    animation: huangdong 2s linear infinite;
+}
+.thirdimg2 img {
+    position: absolute;
+    left: -530px;
+    top: -40px;
+}
+.toup .thirdimg3 {
+    width: 400px;
+    height: 430px;
+    position: absolute;
+    top: 760px;
+    left: 1550px;
+    overflow: hidden;
+    animation: huangdong 2.8s linear infinite;
+}
+.thirdimg3 img {
+    position: absolute;
+    top: -780px;
+    left: -415px;
+}
+.thehotball {
+    position: absolute;
+    top: 200px;
+    left: 950px;
+    width: 550px;
+    height: 700px;
+    animation: huangdong 5s linear infinite;
+}
+.hotball {
+    width: 730px;
+    height: 520px;
+    position: absolute;
+    top: 100px;
+    left: 140px;
+    overflow: hidden;
+    z-index: 2;
+}
+.hotball img {
+    position: absolute;
+    left: -1210px;
+    top: -710px;
+}
+.hotblight {
+    width: 550px;
+    height: 550px;
+    position: absolute;
+    top: -50px;
+    left: 1px;
+    overflow: hidden;
+    animation: jianyin 2s linear infinite;
+}
+.hotblight img {
+    position: absolute;
+    left: -1360px;
+    top: 0;
+}
+.hotbdown {
+    width: 210px;
+    height: 250px;
+    position: absolute;
+    top: 382px;
+    left: 155px;
+    overflow: hidden;
+}
+.hotbdown img {
+    position: absolute;
+    left: 0;
+    top: -775px;
+}
+.hotb-left {
+    width: 80px;
+    height: 73px;
+    position: absolute;
+    top: 550px;
+    left: 150px;
+}
+.hotb-left img {
+    width: 100%;
+    height: 100%;
+}
+.hotb-right {
+    width: 72px;
+    height: 73px;
+    position: absolute;
+    top: 500px;
+    left: 290px;
+}
+.hotb-right img {
+    width: 100%;
+    height: 100%;
+}
+.iimg1 {
+    position: absolute;
+    top: 400px;
+    left: 930px;
+    animation: huangdong 6s linear infinite;
+}
+.iimg2 {
+    position: absolute;
+    top: 800px;
+    left: 930px;
+    animation: huangdong 7s linear infinite;
+}
+.iimg3 {
+    position: absolute;
+    top: 550px;
+    left: 1440px;
+    animation: huangdong 8s linear infinite;
+}
+/*第三页文字样式*/
+.thirdtext {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: #f1d57a;
+    transition: all 0.8s;
+}
+.thirdtext h3 {
+    position: absolute;
+    left: -400px;
+    top: -130px;
+    width: 400px;
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 7px;
+}
+.thirdtext i {
+    position: absolute;
+    left: -400px;
+    top: -50px;
+    width: 40px;
+    height: 4px;
+    background-color: #f1d57a;
+}
+.thirdtext p {
+    position: absolute;
+    left: -400px;
+    width: 400px;
+    font-size: 20px;
+    letter-spacing: 3px;
+}
+/*第四页样式*/
+.fourthimg1 {
+    width: 700px;
+    height: 640px;
+    position: absolute;
+    top: -350px;
+    left: -150px;
+    overflow: hidden;
+    animation: huangdong 5s linear infinite ;
+}
+.fourthimg2 {
+    width: 770px;
+    height: 770px;
+    position: absolute;
+    top: 710px;
+    left: 1150px;
+    overflow: hidden;
+    animation: huangdong 2.4s linear infinite;
+}
+.fourthimg2 img {
+    position: absolute;
+    left: -1060px;
+    top: 0px;
+}
+.fourthimg3 {
+    width: 370px;
+    height: 370px;
+    position: absolute;
+    top: 750px;
+    overflow: hidden;
+    animation: huangdong 2s linear infinite;
+}
+.fourthimg3 img {
+    position: absolute;
+    left: -40px;
+    top: -1060px;
+}
+.fourthimg4 {
+    width: 550px;
+    height: 550px;
+    position: absolute;
+    left: 1450px;
+    top: -80px;
+    overflow: hidden;
+    animation: huangdong 3s linear infinite;
+}
+.fourthimg4 img {
+    position: absolute;
+    top: -1100px;
+    left: -580px;
+}
+.thecloud {
+    width: 550px;
+    height: 700px;
+    position: absolute;
+    top: 200px;
+    left: 400px;
+}
+.cloud {
+    width: 350px;
+    height: 520px;
+    position: absolute;
+    top: -150px;
+    left: 100px;
+    overflow: hidden;
+}
+.cloud img {
+    position: absolute;
+    left: -1200px;
+    top: -960px;
+}
+.cloudlight {
+    width: 550px;
+    height: 620px;
+    position: absolute;
+    left: 0px;
+    top: -100px;
+    overflow: hidden;
+}
+.cloudlight img {
+    position: absolute;
+    top: -1030px;
+    left: -1670px;
+}
+.cloudbottom {
+    width: 310px;
+    height: 180px;
+    position: absolute;
+    left: 120px;
+    top: 380px;
+    overflow: hidden;
+}
+.cloudbottom img {
+    position: absolute;
+    top: -1540px;
+    left: -1200px;
+}
+.cloud-left {
+    width: 52px;
+    height: 79px;
+    position: absolute;
+    left: 60px;
+    top: 300px;
+}
+.cloud-left img {
+    width: 100%;
+    height: 100%;
+}
+.cloud-right {
+    width: 47px;
+    height: 47px;
+    position: absolute;
+    left: 430px;
+    top: 350px;
+}
+.cloud-right img {
+    width: 100%;
+    height: 100%;
+}
+.fouri1 {
+    position: absolute;
+    top: 600px;
+    left: 360px;
+    width: 29px;
+    height: 29px;
+    animation: huangdong 4s linear infinite;
+}
+.fouri2 {
+    position: absolute;
+    top: 350px;
+    left: 840px;
+    width: 39px;
+    height: 40px;
+    animation: huangdong 4.4s linear infinite;
+}
+.fouri3 {
+    position: absolute;
+    top: 700px;
+    left: 860px;
+    width: 30px;
+    height: 33px;
+    animation: huangdong 3.6s linear infinite;
+}
+/*第四页文字样式*/
+.fourthtext {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: #f1d57a;
+    transition: all 0.8s;
+}
+.fourthtext h3 {
+    position: absolute;
+    top: -150px;
+    left: 70px;
+    width: 400px;
+    font-size: 40px;
+    letter-spacing: 7px;
+    font-weight: 400;
+    text-align: right;
+}
+.fourthtext i {
+    position: absolute;
+    left: 420px;
+    top: -70px;
+    width: 40px;
+    height: 4px;
+    background-color: #f1d57a;
+}
+.fourthtext p {
+    position: absolute;
+    top: -30px;
+    width: 470px;
+    font-size: 20px;
+    text-align: right;
+    letter-spacing: 4px;
+}
+/*下载按钮样式*/
+.centertext .download {
+    left: -80px;
+    top: 300px;
+}
+.secondtext .download {
+    left: 230px;
+    top: 30px;
+}
+.thirdtext .download {
+    left: -400px;
+    top: 100px;
+}
+.fourthtext .download {
+    left: 300px;
+    top: 40px;
+}
+.download {
+    position: absolute;
+    width: 160px;
+    height: 50px;
+    font-size: 20px;
+    letter-spacing: 7px;
+    line-height: 50px;
+    text-align: center;
+    background: transparent;
+    border: 1px solid #f1d57a;
+}
+/*右侧tab栏样式*/
+.rightol {
+    position: fixed;
+    top: 50%;
+    right: 6%;
+    margin-top: -80px;
+    z-index: 99;
+    opacity: 0;
+}
+.rightol li {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-bottom: 40px;
+    background-color: #f1d57a;
+    cursor: pointer;
+    opacity: 0.5;
+}
+.rightol .current {
+    width: 12px;
+    height: 12px;
+    margin: 0 0 36px -2px;
+    opacity: 0.8;
+}
+/*背景图片样式*/
+#bgul {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+#bgul li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+#bgul #pgonebg {
+    opacity: 1;
+}
+@keyframes myrotate1 {
+    100% {
+        transform: rotate(-360deg)
+    }
+}
+@keyframes myrotate2 {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+@keyframes huangdong {
+    50% {
+        margin-top: -20px;
+    }
+    100%{
+        margin-top: 0;
+    }
+}
+@keyframes jianyin {
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}

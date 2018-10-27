@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        #mycanvas {
+            border: 1px solid red;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+<canvas id="mycanvas"></canvas>
+<script>
+    var c = document.getElementById('mycanvas');
+    var ctx = c.getContext('2d');
+    c.setAttribute('width', window.innerWidth);
+    c.setAttribute('height', window.innerHeight);
+    var arr = [];
+    ctx.translate(c.width * 0.5, c.height * 0.5);
+
+    var theRadius = Math.min(c.width, c.height) * 0.4;
+    for (var i = 0; i < 24; i++) {
+        var theAngle = 15 * i;
+        arr.push(theAngle);
+    }
+    function createR() {
+        var yRate = 0.3;
+        for (var i = 0; i < arr.length; i++) {
+            var du = arr[i];
+            var x = Math.cos(Math.PI * du / 180);
+            var y = Math.sin(Math.PI * du / 180) * yRate;
+            var rate = (y / yRate + 3) / 4;
+            ctx.beginPath();
+            ctx.arc(x * theRadius, y * theRadius, rate * 10, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(255,255,255,' + rate + ')';
+            ctx.fill();
+        }
+    }
+
+        setInterval(function(){
+            c.width = c.width;
+            ctx.translate(c.width * 0.5 , c.height * 0.5);
+            for (var i = 0; i < arr.length; i++) {
+                arr[i]= arr[i] + 1;
+            }
+            createR();
+        },1000/60)
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 1920px;
+            height: 1080px;
+            position: relative;
+            overflow: hidden;
+            left: 0 !important;
+            top: 0 !important;
+        }
+        .bigbox {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .thebox {
+            position: absolute;
+            top: 255px;
+            left: 660px;
+            width: 600px;
+            height: 570px;
+            border: 1px solid red;
+        }
+        .thethunder ,.thunderbird {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+        .thunderbird>img {
+            width: 362.166%;
+            margin-left: -260%;
+            margin-top: -120%;
+        }
+
+        img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+        }
+
+        #pgonebg {
+
+        }
+    </style>
+    <script src="js/jquery-1.12.2.js"></script>
+    <script>
+        $.fn.getRate = function (){
+            var wRate = this.width()/this.parent().width();
+            var hRate = this.height()/this.parent().height();
+            var whRate = this.width()/this.height();
+            var topRate = (this.offset().top + this.height()/2) / this.parent().height();
+            var leftRate = (this.offset().left + this.width()/2) / this.parent().width();
+            this.data('wRate',wRate);
+            this.data('hRate',hRate);
+            this.data('whRate',whRate);
+            this.data('topRate',topRate);
+            this.data('leftRate',leftRate);
+            return this;
+        };
+//        $('div').each().getRate();
+//        console.log($('.thebox div').data('wRate'));
+        $.fn.bgimgsize = function() {
+            if ($(window).width() / $(window).height() > this[0].naturalWidth / this[0].naturalHeight) {
+                //设置图片宽度100% 高度为宽度*1080/1920
+                this.width($(window).width()).height($(window).width() / this[0].naturalWidth * this[0].naturalHeight);
+                //设置图片中心点在窗口中心
+                this.css({'marginTop': -(this.height() - $(window).height()) / 2})
+            } else {
+                this.height($(window).height()).width($(window).height() * this[0].naturalWidth / this[0].naturalHeight);
+                this.css({'marginLeft': -(this.width() - $(window).width()) / 2})
+            }
+            return this
+        };
+        $.fn.boxsize = function (){
+            if ($(window).width() / $(window).height() > 1920 / 1080){
+                //设置高为原比率 宽随高变动
+//                    console.log($('.thebox').height());
+//                    console.log($('.thebox').parent().height()*$('.thebox').data('hRate'));
+                this.height(this.parent().height()* this.data('hRate')).width(this.height()*this.data('whRate'));
+                //盒子位置比率不变
+                console.log(this.parent().height() * this.data('topRate') - this.height() / 2 , this.data('topRate'));
+                console.log(this.parent().width() * this.data('leftRate') - this.width() / 2 , this.data('leftRate'));
+                this.offset({top:this.parent().height()* this.data('topRate') - this.height()/2 , left : this.parent().width()* this.data('leftRate') - this.width()/2})
+            }else {
+                this.width(this.parent().width() * this.data('wRate')).height(this.width() /this.data('whRate'));
+                this.offset({top:this.parent().height()* this.data('topRate') - this.height()/2 , left : this.parent().width()* this.data('leftRate') - this.width()/2})
+
+            }
+            return this;
+        };
+        $(function () {
+            $('#pgonebg').getRate();
+            $('.boxsize').each(function(){
+                $(this).getRate()
+            });
+            $('html ,body').css({
+                'width' : '100% ' ,
+                'height' : '100% '
+            });
+            $('.bigbox').css({
+                'width' : '100% ' ,
+                'height' : '100% '
+            });
+            $('#pgonebg').bgimgsize();
+            $('.boxsize').each(function(){
+                $(this).boxsize()
+            });
+//            $('.boxsize').each().getRate();
+//            $('.boxsize').each().boxsize();
+            $(window).resize(function () {
+//                $('.thebox').boxsize();
+                $('.boxsize').each(function(){
+                    $(this).boxsize()
+                });
+                $('#pgonebg').bgimgsize();
+//                if ($(window).width() / $(window).height() > 1920 / 1080) {
+//                    //设置高为原比率 宽随高变动
+////                    console.log($('.thebox').height());
+////                    console.log($('.thebox').parent().height()*$('.thebox').data('hRate'));
+//                    $('.thebox').height($('.thebox').parent().height()* $('.thebox').data('hRate')).width($('.thebox').height()/$('.thebox').data('whRate'));
+//                    //盒子位置比率不变
+//                    $('.thebox').offset({top:$('.thebox').parent().height()* $('.thebox').data('topRate') , left : $('.thebox').parent().width()* $('.thebox').data('leftRate')})
+//                } else {
+//                    $('.thebox').width($('.thebox').parent().width() * $('.thebox').data('wRate')).height($('.thebox').width() *$('.thebox').data('whRate'));
+//                    $('.thebox').offset({top:$('.thebox').parent().height()* $('.thebox').data('topRate') , left : $('.thebox').parent().width()* $('.thebox').data('leftRate')})
+//
+//                }
+
+                //
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="bigbox ">
+    <div class="thebox boxsize">
+        <div class="thunderbird">
+            <img src="images/p1bgimg.png" alt=""/>
+            <div class="quan1">
+                <img src="images/p1bgimg.png" alt=""/>
+                <div class="quan2">
+                    <img src="images/p1bgimg.png" alt=""/>
+                    <div class="quan3">
+                        <img src="images/p1bgimg.png" alt=""/>
+                        <div class="quan4">
+                            <img src="images/p1bgimg.png" alt=""/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="thethunder">
+            <img src="images/p1bgimg.png" alt=""/>
+        </div>
+    </div>
+</div>
+<img src="images/bg1.jpg" alt="" id="pgonebg" class="pgonebg"/>
+</body>
+</html>
+

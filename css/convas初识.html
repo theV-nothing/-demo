@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bigbox {
+            perspective: 200px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            /*background: #000;*/
+        }
+
+        /*#mycanvas {*/
+        /*border: 1px solid red;*/
+        /*position: absolute;*/
+        /*z-index: 2;*/
+        /*background: transparent;*/
+        /*}*/
+
+        #mycanvas {
+            border: 1px solid red;
+            /*width: 100%;*/
+            /*height: 100%;*/
+            position: absolute;
+            z-index: 1;
+            background: transparent;
+        }
+
+        #box {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #box div {
+            width: 15px;
+            height: 15px;
+            background-color: skyblue;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="bigbox">
+    <canvas id="mycanvas" width="500" height="500"></canvas>
+    <!--<canvas id="mycanvas"></canvas>-->
+    <div id="box">
+        <!--<a href="www.baidu.com">百度</a>-->
+    </div>
+    <!--<input type="button" id="btn" value="按钮"/>;-->
+</div>
+<script>
+    var c = document.getElementById('mycanvas');
+    var ctx = c.getContext('2d');
+    var box = document.getElementById('box');
+    c.onmousedown = function (e) {
+        console.log(1);
+        var x, y, endx, endy, starx, stary;
+        x = e.pageX;
+        starx = x;
+        y = e.pageY;
+        stary = y;
+        document.onmousemove = function (e) {
+            c.width = c.width;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(e.pageX, e.pageY);
+            ctx.lineWidth = 15;
+            ctx.strokeStyle = 'skyblue';
+            ctx.stroke();
+        };
+        document.onmouseup = function (e) {
+            endx = e.pageX;
+            endy = e.pageY;
+            document.onmousemove = null;
+            var ball = document.createElement('div');
+            box.appendChild(ball);
+            ball.style.top = y + 'px';
+            ball.style.left = x + 'px';
+            var length = Math.sqrt(Math.abs((endx - starx) * (endx - starx) + (endy - stary) * (endy - stary)));
+            c.width = c.width;
+
+            if (endx > starx) {
+                var stepx = -Math.abs(length / 60 * (endx - starx) / (endy - stary));
+            } else {
+                var stepx = Math.abs(length / 60 * (endx - starx) / (endy - stary));
+            }
+            if (endy > stary) {
+                var stepy = -length / 60;
+            } else {
+                var stepy = length / 60;
+            }
+            setInterval(fn, 1000 / 60);
+            function fn() {
+                if (y <= 0 || y > box.clientHeight - ball.offsetHeight) {
+                    stepy = -stepy;
+                }
+                if (x <= 0 || x > box.clientWidth - ball.offsetHeight) {
+                    stepx = -stepx;
+                }
+                y += stepy;
+                x += stepx;
+                ball.style.top = y + 'px';
+                ball.style.left = x + 'px';
+            }
+        }
+    };
+    //
+    //    var c2 = document.getElementById('mycanvas');
+    //    var ctx2 = c2.getContext('2d');
+    //    c2.setAttribute('width', window.innerWidth);
+    //    c2.setAttribute('height', window.innerHeight);
+    //    var arr = [];
+    //    function createStar() {
+    //        var x = Math.random() * c2.width, y = Math.random() * c2.height, r = Math.random() * 2 + 3;
+    //        var obj = new Object();
+    //        obj.x = x;
+    //        obj.y = y;
+    //        obj.r = r;
+    //        arr.push(obj);
+    //        ctx2.beginPath();
+    //        ctx2.arc(x, y, r, 0, 2 * Math.PI);
+    //        var gradientOne = ctx2.createRadialGradient(x, y, 1, x, y, r);
+    //        gradientOne.addColorStop(0, '#F1B337');
+    //        gradientOne.addColorStop(1, 'transparent');
+    //        ctx2.fillStyle = gradientOne;
+    //        ctx2.fill();
+    //    }
+    //    for (var i = 0; i < 31; i++) {
+    //        createStar();
+    //    }
+    //    var btn = document.getElementById('btn');
+    //    var j = 0;
+    //    function themove() {
+    //        c2.width = c2.width;
+    //        if (j >= 200 || j<=-200) {
+    //            clearInterval(linemoveId);
+    //            for (var i = 0; i < arr.length; i++) {
+    //                var obj = arr[i];
+    //                if(obj.y+ 2*j < 0 || obj.y + 2*j > c2.height){
+    //                    obj.y = Math.random() * c2.height - 2*j;
+    //                }
+    //                ctx2.beginPath();
+    //                ctx2.arc(obj.x, obj.y + 2*j, obj.r, 0, 2 * Math.PI);
+    //                var gradientOne = ctx2.createRadialGradient(obj.x, obj.y + 2*j, 1, obj.x, obj.y + 2*j, obj.r);
+    //                gradientOne.addColorStop(0, '#F1B337');
+    //                gradientOne.addColorStop(1, 'transparent');
+    //                ctx2.fillStyle = gradientOne;
+    //                ctx2.fill();
+    //                obj.y = obj.y + 2*j;
+    //            }
+    //            j = 0;
+    //            return;
+    //        }
+    //        if(j>=100||j<=-100){
+    //            for (var i = 0; i < arr.length; i++) {
+    //                var obj = arr[i];
+    //                ctx2.beginPath();
+    //                ctx2.moveTo(obj.x, obj.y + 2.5 * j - j/Math.abs(j) * 100);
+    //                ctx2.lineTo(obj.x, obj.y + 2 * j);
+    //                ctx2.lineWidth = obj.r;
+    //                ctx2.strokeStyle = '#f1d57a';
+    //                ctx2.stroke();
+    //            }
+    //        }else {
+    //            for (var i = 0; i < arr.length; i++) {
+    //                var obj = arr[i];
+    //                ctx2.beginPath();
+    //                ctx2.moveTo(obj.x, obj.y + 1.5 * j);
+    //                ctx2.lineTo(obj.x, obj.y + 2 * j);
+    //                ctx2.lineWidth = obj.r;
+    //                ctx2.strokeStyle = '#f1d57a';
+    //                ctx2.stroke();
+    //
+    //            }
+    //        }
+    //        j++;
+    //    }
+    //    var linemoveId;
+    //    btn.onclick = function () {
+    //        linemoveId = setInterval(themove, 1000 / 200)
+    //    };
+    //        var i = 1;
+    //        function thearc() {
+    //            c2.setAttribute('width', window.innerWidth);
+    //            c2.setAttribute('height', window.innerHeight);
+    //            if(i>=150){
+    //                clearInterval(loadId);
+    //                return;
+    //            }
+    //            if(i<30){
+    //                ctx2.beginPath();
+    //                ctx2.arc(c2.clientWidth / 2, c2.clientHeight / 2, 5 + 1.05* i, 0, Math.PI * 2);
+    //                ctx2.strokeStyle = '#fff';
+    //                ctx2.stroke();
+    //                ctx2.beginPath();
+    //                ctx2.arc(c2.clientWidth / 2, c2.clientHeight / 2,4 + 0.75 * i, 0, Math.PI * 2);
+    //                ctx2.strokeStyle = '#fff';
+    //                ctx2.stroke();
+    //                ctx2.beginPath();
+    //                ctx2.arc(c2.clientWidth / 2, c2.clientHeight / 2,3 + 0.45 * i, 0, Math.PI * 2);
+    //                ctx2.strokeStyle = '#fff';
+    //                ctx2.stroke();
+    //                ctx2.beginPath();
+    //                ctx2.arc(c2.clientWidth / 2, c2.clientHeight / 2,2 + 0.15 * i, 0, Math.PI * 2);
+    //                ctx2.strokeStyle = '#fff';
+    //                ctx2.stroke();
+    //            }else {
+    //                ctx2.beginPath();
+    //                ctx2.arc(c2.clientWidth / 2, c2.clientHeight / 2, 42 * (i - 28), 0, Math.PI * 2);
+    //                ctx2.strokeStyle = '#fff';
+    //                ctx2.beginPath();
+    //                ctx2.arc(c2.clientWidth / 2, c2.clientHeight / 2,30 * (i - 28), 0, Math.PI * 2);
+    //                ctx2.strokeStyle = '#fff';
+    //                ctx2.stroke();
+    //                ctx2.beginPath();
+    //                ctx2.arc(c2.clientWidth / 2, c2.clientHeight / 2, 60*(i-28), 0, Math.PI * 2);
+    //                var myGradient2 = ctx2.createRadialGradient(c2.clientWidth / 2, c2.clientHeight / 2, 1, c2.clientWidth / 2  , c2.clientHeight / 2 , 60*(i-28));
+    //                myGradient2.addColorStop(0, 'transparent');
+    //                myGradient2.addColorStop(0.55, 'transparent');
+    //
+    //                myGradient2.addColorStop(0.6, 'white');
+    //
+    //                myGradient2.addColorStop(1, 'transparent');
+    //                ctx2.fillStyle = myGradient2;
+    //                ctx2.fill();
+    //                ctx2.strokeStyle = 'transparent';
+    //                ctx2.stroke();
+    //            }
+    //            i++;
+    //        }
+    //        var loadId = setInterval(thearc, 1000 / 60)
+</script>
+</body>
+</html>

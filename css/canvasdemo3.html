@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        #mycanvas {
+            border: 1px solid red;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+<canvas id="mycanvas"></canvas>
+<script>
+    var c = document.getElementById('mycanvas');
+    var ctx = c.getContext('2d');
+    var img = document.createElement('img');
+    c.setAttribute('width', window.innerWidth);
+    c.setAttribute('height', window.innerHeight);
+    var arr = [];
+    ctx.translate(c.width * 0.5, c.height * 0.5);
+    var theRadius = Math.min(c.width, c.height) * 0.4;
+    //
+    //y = 0 ;
+    // thexAngle + 1
+    //
+    //y = x ;
+    //y = -x;
+    //
+    // x2 + z2 = r2
+    //
+    //
+    //
+    //
+    //
+    for (var j = -9; j < 9; j++) {
+        for (var i = 0; i < 24; i++) {
+            var obj = {};
+            obj.thexAngle = 15 * i;
+            if (15 * i >= 180) {
+                obj.theyAngle =  180 - 20 * j - 180;
+            }
+            arr.push(obj);
+        }
+    }
+    console.log(arr);
+    //
+    //
+    // x = Math.cos(Math.PI *dushu.theyAngle/180) *Math.cos(Math.PI * dushu.thexAngle/180 )
+    // z = Math.cos(Math.PI *dushu.theyAngle/180) *Math.sin(Math.PI * dushu.thexAngle/180 )
+    //
+    //
+    function createR() {
+        var yRate = 0.3;
+        for (var i = 0; i < arr.length; i++) {
+            var dushu = arr[i];
+            var y = Math.sin(Math.PI * dushu.theyAngle / 180) * theRadius;
+            var x = Math.cos(Math.PI * dushu.theyAngle / 180) * theRadius * Math.cos(Math.PI * dushu.thexAngle / 180);
+            var z = Math.cos(Math.PI * dushu.theyAngle / 180) * Math.sin(Math.PI * dushu.thexAngle / 180);
+            var rate = (z + 1.7) / 2.7;
+            ctx.beginPath();
+            ctx.arc(x, y, rate * 10, 0, 2 * Math.PI);
+//            var myg =
+
+            ctx.fillStyle = 'rgba(255,255,255,' + rate + ')';
+            ctx.fill();
+        }
+    }
+    //    createR();
+    setInterval(function () {
+        c.width = c.width;
+        ctx.translate(c.width * 0.5, c.height * 0.5);
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].thexAngle = arr[i].thexAngle + 1;
+//            arr[i].theyAngle = arr[i].theyAngle + 1;
+        }
+        createR();
+    }, 1000 / 30)
+</script>
+</body>
+</html>
